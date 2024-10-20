@@ -1,0 +1,13 @@
+import pytesseract
+from PIL import Image
+import re
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+image = Image.open('image_with_expiry_date1.jpg')
+text = pytesseract.image_to_string(image)
+print("Extracted Text:\n", text)
+date_pattern = r'\b(0[1-9]|1[0-2])/[0-9]{2,4}\b'
+expiry_date = re.findall(date_pattern, text)
+if expiry_date:
+    print("Expiry Date:", expiry_date[0])
+else:
+    print("Expiry date not found")
